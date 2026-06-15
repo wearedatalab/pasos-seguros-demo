@@ -1,5 +1,8 @@
 # Pasos Seguros — Prototipo de diseño (PWA)
 
+🔗 **Demo en vivo:** https://wearedatalab.github.io/pasos-seguros-demo/
+_(ábrelo en el celular para instalarlo y probar el modo sin conexión)_
+
 Prototipo **de solo front y diseño** de la plataforma **Pasos Seguros**: una _Progressive Web App_
 (PWA) informativa, **anónima**, **multilingüe** y **disponible sin conexión** para personas
 **migrantes en tránsito**, propuesta para **Profamilia** y el consorcio de organizaciones aliadas.
