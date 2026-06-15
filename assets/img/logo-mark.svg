@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pasos Seguros">
+  <rect x="0" y="0" width="100" height="100" rx="23.5" fill="#154734"/>
+  <rect x="20" y="66.5" width="34" height="13.5" rx="5" fill="#78be23"/>
+  <rect x="36" y="51.5" width="34" height="13.5" rx="5" fill="#78be23"/>
+  <rect x="52" y="36.5" width="34" height="13.5" rx="5" fill="#78be23"/>
+  <circle cx="74.5" cy="29.5" r="11.3" fill="none" stroke="#d2d97a" stroke-width="1.8"/>
+  <circle cx="74.5" cy="29.5" r="8.5" fill="#f8b199"/>
+</svg>

@@ -1,0 +1,10 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporales / herramientas locales
+_*
+*.log
+.vscode/
+.idea/
