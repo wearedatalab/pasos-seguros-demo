@@ -328,6 +328,23 @@ a { color: inherit; text-decoration: none; }
 .avatar[aria-pressed="true"] { border-color: var(--action); background: rgba(120,190,35,.2); transform: translateY(-2px); }
 .avatar.greet { animation: greetBounce .42s var(--ease-out); }
 
+/* ===== Ilustraciones vectoriales generadas (fal.ai / Recraft) ===== */
+/* Fondo de bienvenida: ilustración clara arriba + degradado oscuro para el texto claro */
+.ob--intro .ob__body { justify-content:flex-end; padding-top:0; }
+.ob__introbg { position:absolute; inset:0; z-index:0; background:url("../img/generated/welcome-bg.svg") center top / cover no-repeat; }
+.ob__introscrim { position:absolute; inset:0; z-index:0; background:linear-gradient(to bottom, transparent 0%, transparent 24%, var(--shell-deep) 76%); }
+/* Avatares ilustrados */
+.avatar { padding:0; overflow:hidden; }
+.avatar img { width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
+.avatar.is-sel { border-color: var(--action); background: rgba(120,190,35,.2); transform: translateY(-2px); }
+.hub__avatar { overflow:hidden; }
+.hub__avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+/* Íconos de categoría ilustrados */
+.row__ic--img { background:transparent; padding:0; overflow:hidden; }
+.row__ic--img img { width:100%; height:100%; object-fit:cover; display:block; border-radius:12px; }
+/* Ilustración del panel de presentación (escritorio) */
+.pitch__art { width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:18px; box-shadow: var(--shadow); display:block; margin-bottom:22px; }
+
 /* Tarjeta de confianza */
 .trust { display:flex; gap:13px; align-items:flex-start; background: var(--care-wash); border:1px solid var(--care-line); border-radius:16px; padding: 15px; margin-top: 4px; }
 .trust .ic { flex:0 0 auto; width:40px; height:40px; border-radius:12px; background: rgba(252,255,221,.14); color:#fcd9c8; display:grid; place-items:center; }
@@ -384,6 +401,30 @@ a { color: inherit; text-decoration: none; }
 [data-mode="dark"] .map-disabled { background: rgba(252,255,221,.05); }
 .map-disabled .ic { color: var(--ink-faint); flex:0 0 auto; }
 .map-disabled p { margin:0; font-size:.84rem; color: var(--ink-soft); line-height:1.45; }
+
+/* Ubicación del punto: previo tocable → mapa embebido + "Cómo llegar". */
+.mapblock { margin: 4px 0 6px; }
+
+.maptease { position:relative; display:block; width:100%; height:150px; border-radius:16px; overflow:hidden; border:1px solid var(--line-strong); background:#e9efe8; cursor:pointer; padding:0; transition: transform .12s var(--ease), box-shadow .2s; }
+.maptease:hover { box-shadow: 0 10px 24px rgba(21,71,52,.18); }
+.maptease:active { transform: scale(.99); }
+.maptease__art { position:absolute; inset:0; width:100%; height:100%; }
+.maptease__scrim { position:absolute; inset:0; background: linear-gradient(to top, rgba(12,32,24,.66), rgba(12,32,24,.16) 58%, rgba(12,32,24,.04)); }
+.maptease__body { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-align:center; color:#fff; padding:14px; }
+.maptease__body b { font-family: var(--font-display); font-weight:800; font-size:1.05rem; text-shadow:0 1px 6px rgba(0,0,0,.3); }
+.maptease__hint { font-size:.82rem; opacity:.95; display:inline-flex; align-items:center; gap:5px; }
+.maptease__pin { display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; background:var(--action); color:var(--on-action); box-shadow:0 6px 16px rgba(120,190,35,.55); margin-bottom:2px; }
+
+.mapblock.is-open { display:flex; flex-direction:column; }
+.mapframe { position:relative; width:100%; height:210px; border-radius:16px; overflow:hidden; border:1px solid var(--line-strong); background:#e9efe8; }
+.mapframe iframe { width:100%; height:100%; border:0; display:block; }
+.btn--map { margin-top:12px; }
+.mapnote { display:flex; gap:6px; align-items:center; justify-content:center; margin:9px 0 2px; font-size:.78rem; color: var(--ink-soft); line-height:1.4; }
+.mapnote svg { color: var(--ink-faint); flex:0 0 auto; }
+.mapoffline { display:flex; gap:12px; align-items:center; width:100%; text-align:left; background: rgba(21,71,52,.05); border:1px dashed var(--line-strong); border-radius:16px; padding:16px; cursor:pointer; }
+.mapoffline span { font-size:.86rem; color: var(--ink-soft); line-height:1.45; }
+.mapoffline svg { color: var(--ink-faint); flex:0 0 auto; }
+[data-mode="dark"] .mapoffline { background: rgba(252,255,221,.05); }
 
 .sticky-actions { position: sticky; bottom:0; background: linear-gradient(to top, var(--paper) 72%, transparent); padding: 12px 0 6px; display:flex; gap:10px; margin-top: 6px; }
 

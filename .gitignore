@@ -8,3 +8,8 @@ _*
 *.log
 .vscode/
 .idea/
+
+# Claves y secretos (NUNCA subir al repo)
+.env
+.env.*
+!.env.example

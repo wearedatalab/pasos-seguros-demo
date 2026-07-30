@@ -682,17 +682,17 @@ window.PS_DATA = {
     }
   ],
   "avatars": [
-    "🦅",
-    "🌿",
-    "☀️",
-    "⛰️",
-    "🌊",
-    "⭐",
-    "🌙",
-    "🧭",
-    "🕊️",
-    "🌻",
-    "🐝",
-    "🔆"
+    "aguila",
+    "hoja",
+    "sol",
+    "montana",
+    "ola",
+    "estrella",
+    "luna",
+    "brujula",
+    "paloma",
+    "girasol",
+    "abeja",
+    "destello"
   ]
 };

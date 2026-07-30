@@ -2,18 +2,37 @@
    Estrategia: precache del "app shell" + cache-first para activos del mismo origen.
    Es lo que hace que la PWA funcione SIN CONEXIÓN, el valor central del proyecto. */
 
-const CACHE = 'pasos-seguros-v4';
+const CACHE = 'pasos-seguros-v7';
 
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './assets/css/styles.css',
-  './assets/js/data.js',
-  './assets/js/i18n.js',
-  './assets/js/app.js',
+  './assets/css/styles.css?v=7',
+  './assets/js/data.js?v=7',
+  './assets/js/i18n.js?v=7',
+  './assets/js/app.js?v=7',
   './assets/img/logo-mark.svg',
   './assets/img/logo-steps.svg',
+  './assets/img/generated/welcome-bg.svg',
+  './assets/img/generated/pitch-art.svg',
+  './assets/img/generated/cat-ssr.svg',
+  './assets/img/generated/cat-prevencion.svg',
+  './assets/img/generated/cat-embarazo.svg',
+  './assets/img/generated/cat-bienestar.svg',
+  './assets/img/generated/cat-proteccion.svg',
+  './assets/img/generated/avatar-aguila.svg',
+  './assets/img/generated/avatar-hoja.svg',
+  './assets/img/generated/avatar-sol.svg',
+  './assets/img/generated/avatar-montana.svg',
+  './assets/img/generated/avatar-ola.svg',
+  './assets/img/generated/avatar-estrella.svg',
+  './assets/img/generated/avatar-luna.svg',
+  './assets/img/generated/avatar-brujula.svg',
+  './assets/img/generated/avatar-paloma.svg',
+  './assets/img/generated/avatar-girasol.svg',
+  './assets/img/generated/avatar-abeja.svg',
+  './assets/img/generated/avatar-destello.svg',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/favicon-32.png',

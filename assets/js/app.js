@@ -24,6 +24,7 @@
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
     pinoff: '<path d="M2 2l20 20"/><path d="M8.5 8.6A8 8 0 0 0 4 10c0 6 8 12 8 12a26 26 0 0 0 4-3.8"/><path d="M17.6 13.6A14 14 0 0 0 20 10a8 8 0 0 0-12.8-6.4"/>',
+    route: '<path d="M22 2 15 22l-4-9-9-4 20-7Z"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/>',
     shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>',
     shieldcheck: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
@@ -55,6 +56,10 @@
     const p = ICONS[name] || "";
     return `<svg class="ic ${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
   }
+  // Ilustraciones vectoriales generadas (fal.ai / Recraft). Empaquetadas para offline.
+  const GEN = "assets/img/generated/";
+  const avatarSrc = (id) => `${GEN}avatar-${id}.svg`;
+  const catIconSrc = (catId) => `${GEN}${catId}.svg`;
 
   /* ---------------- Estado + persistencia ---------------- */
   const LS = {
@@ -124,9 +129,11 @@
 
   function obIntro() {
     app.innerHTML = `
-      <div class="ob fade-enter">
-        <div class="ob__body" style="display:flex;flex-direction:column;justify-content:center;text-align:center;align-items:center;padding-top:40px;">
-          <img src="assets/img/logo-mark.svg" alt="" style="width:96px;height:96px;border-radius:26px;box-shadow:var(--shadow-lg);margin-bottom:24px;" class="pop"/>
+      <div class="ob ob--intro fade-enter">
+        <div class="ob__introbg" aria-hidden="true"></div>
+        <div class="ob__introscrim" aria-hidden="true"></div>
+        <div class="ob__body" style="display:flex;flex-direction:column;justify-content:flex-end;text-align:center;align-items:center;position:relative;z-index:1;">
+          <img src="assets/img/logo-mark.svg" alt="" style="width:88px;height:88px;border-radius:24px;box-shadow:var(--shadow-lg);margin-bottom:20px;" class="pop"/>
           <div class="ob__kicker">Profamilia · ${esc(t("demoBadge"))}</div>
           <h1 class="ob__title" style="font-size:2.1rem;margin-top:10px;">${esc(t("appName"))}</h1>
           <p class="ob__sub" style="text-align:center;">${esc(t("tagline"))}</p>
@@ -135,7 +142,7 @@
             <div><b>${esc(t("privacyTitle"))}</b><p>${esc(t("privacyBody"))}</p></div>
           </div>
         </div>
-        <div class="ob__foot">
+        <div class="ob__foot" style="position:relative;z-index:1;">
           <button class="btn" data-act="ob-next">${esc(t("continue"))}</button>
           <button class="btn btn--ghost-light" style="margin-top:10px" data-act="install">${icon("install", 18)} ${esc(t("installApp"))}</button>
         </div>
@@ -157,7 +164,7 @@
     } else if (step === "avatar") {
       active = 3; title = t("chooseAvatar"); sub = t("avatarHint");
       body = `<div class="avatars">${DATA.avatars.map(a =>
-        `<button class="avatar ${state.avatar === a ? "" : ""}" aria-pressed="${state.avatar === a}" data-act="avatar:${a}">${a}</button>`).join("")}</div>`;
+        `<button class="avatar ${state.avatar === a ? "is-sel" : ""}" aria-pressed="${state.avatar === a}" data-act="avatar:${a}"><img src="${avatarSrc(a)}" alt="" /></button>`).join("")}</div>`;
     }
     const canContinue = step === "language" ? !!state.lang : step === "country" ? !!state.country : !!state.avatar;
     app.innerHTML = `
@@ -192,7 +199,7 @@
     app.innerHTML = `
       <div class="ob fade-enter">
         <div class="ob__body" style="display:flex;flex-direction:column;justify-content:center;text-align:center;align-items:center;">
-          <div class="avatar greet" aria-pressed="true" style="width:96px;height:96px;font-size:3rem;border-color:var(--action);background:rgba(120,190,35,.2);margin-bottom:20px;">${state.avatar}</div>
+          <div class="avatar greet" aria-pressed="true" style="width:104px;height:104px;border-color:var(--action);margin-bottom:20px;"><img src="${avatarSrc(state.avatar)}" alt="" /></div>
           <div class="ob__kicker">${country() ? cn(country()) : ""}</div>
           <h1 class="ob__title" style="font-size:1.9rem;">${state.lang === "es" ? "Todo listo" : state.lang === "fr" ? "Tout est prêt" : state.lang === "en" ? "All set" : "Tout pare"}</h1>
           <div class="trust" style="margin-top:22px;text-align:left;max-width:330px;">
@@ -265,7 +272,7 @@
       : "Enfòmasyon sante w konfidansyèl. Nan nenpòt pwen asistans ou ka mande san bay non w.";
     return `<div class="screen screen--dark"><div class="hub">
       <div class="hub__head">
-        <div class="hub__avatar">${state.avatar}</div>
+        <div class="hub__avatar"><img src="${avatarSrc(state.avatar)}" alt="" /></div>
         <div>
           <div class="hub__hi">${esc(hi)}</div>
           <div class="hub__country">${c ? cn(c) : esc(t("chooseCountry"))}</div>
@@ -363,6 +370,55 @@
   }
 
   /* ---------------- FICHA DE SEDE ---------------- */
+  /* Ubicación de una sede en Google Maps. El mapa NO se carga hasta que la persona
+     toca el previo: hasta entonces no se contacta a Google ni se usa la ubicación
+     del usuario. Todo esto requiere conexión (se avisa en la interfaz). */
+  function mapsQuery(s) {
+    const addr = (s.address || "").replace(/\s*\([^)]*\)\s*/g, " ").trim();
+    return [addr, s.city].filter(Boolean).join(", ");
+  }
+  function mapEmbedUrl(s) {
+    return "https://maps.google.com/maps?q=" + encodeURIComponent(mapsQuery(s)) + "&z=15&output=embed";
+  }
+  function mapDirUrl(s) {
+    return "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(mapsQuery(s));
+  }
+  // Ilustración de mapa (decorativa, dibujada sin red) para el previo tocable.
+  function mapArt() {
+    return `<svg class="maptease__art" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="160" fill="#e9efe8"/>
+      <circle cx="336" cy="32" r="42" fill="#cfe4c2"/>
+      <rect x="18" y="16" width="72" height="40" rx="4" fill="#dde7da"/>
+      <rect x="150" y="94" width="94" height="48" rx="4" fill="#dde7da"/>
+      <g stroke="#d3ddce" stroke-width="11" fill="none" stroke-linecap="round">
+        <path d="M-20 52 H420"/><path d="M-20 116 H420"/><path d="M118 -20 V180"/><path d="M286 -20 V180"/><path d="M-20 -12 L232 180"/>
+      </g>
+      <g stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round">
+        <path d="M-20 52 H420"/><path d="M-20 116 H420"/><path d="M118 -20 V180"/><path d="M286 -20 V180"/><path d="M-20 -12 L232 180"/>
+      </g>
+    </svg>`;
+  }
+  // Previo tocable: se ve una ilustración, no el mapa real (que solo carga al tocar).
+  function mapTeaser(code, idx) {
+    return `<button class="maptease" data-act="showmap:${code}:${idx}" aria-label="${esc(t("seeLocationHere"))}">
+      ${mapArt()}
+      <span class="maptease__scrim"></span>
+      <span class="maptease__body">
+        <span class="maptease__pin">${icon("pin", 24)}</span>
+        <b>${esc(t("seeLocationHere"))}</b>
+        <span class="maptease__hint">${icon("chevron", 14)} ${esc(t("tapToSeeMap"))}</span>
+      </span>
+    </button>`;
+  }
+  // Contenido tras tocar: mapa embebido + "Cómo llegar" (o aviso si no hay conexión).
+  function mapExpanded(s, code, idx) {
+    if (!isOnline()) {
+      return `<button class="mapoffline" data-act="showmap:${code}:${idx}">${icon("wifioff", 24)}<span>${esc(t("mapNeedsInternet"))}</span></button>`;
+    }
+    return `<div class="mapframe"><iframe title="${esc(s.name)}" src="${mapEmbedUrl(s)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+      <a class="btn btn--ghost btn--map" href="${mapDirUrl(s)}" target="_blank" rel="noopener noreferrer">${icon("route", 20)} ${esc(t("directions"))}</a>
+      <p class="mapnote">${icon("info", 15)} ${esc(t("mapNeedsInternet"))}</p>`;
+  }
   function vVenue(p) {
     statusbarDark(true);
     const c = DATA.countries.find(x => x.code === p.code);
@@ -379,6 +435,7 @@
         <p class="hero__sub">${icon("pin", 14)} ${esc(s.city)}</p>
       </div>
       <div class="screen__pad">
+        <div class="mapblock" id="mapblock">${mapTeaser(c.code, p.idx)}</div>
         <div class="demo-ribbon">${icon("info", 16)} ${esc(t("demoBadge"))} · ${state.lang === "es" ? "datos de ejemplo" : "sample"}</div>
         <div class="card" style="padding:4px 16px;">
           ${infoLine("pin", state.lang === "es" ? "Dirección" : "Address", esc(s.address))}
@@ -387,7 +444,6 @@
           ${infoLine("globe", t("servicesLabel"), `<div class="service-tags">${s.services.map(x => `<span class="service-tag">${esc(x)}</span>`).join("")}</div>`)}
           ${infoLine("users", state.lang === "es" ? "Idiomas de atención" : "Languages", esc(s.languages.join(" · ")))}
         </div>
-        <div class="map-disabled">${icon("pinoff", 22)}<p>${esc(t("openMap"))}</p></div>
         <button class="save-toggle ${saved ? "is-saved" : ""}" data-act="save:${id}">
           <span class="save-toggle__ic">${icon(saved ? "checkcircle" : "download", 22)}</span>
           <span class="save-toggle__txt"><b>${esc(saved ? t("downloadedReady") : t("saveForOffline"))}</b><span>${state.lang === "es" ? "Disponible aunque te quedes sin señal" : ""}</span></span>
@@ -418,7 +474,7 @@
         ${DATA.categories.map(cat => {
           const n = DATA.articles.filter(a => a.categoryId === cat.id).length;
           return `<button class="row" data-act="articles:${cat.id}">
-            <span class="row__ic row__ic--care">${icon("heart", 22)}</span>
+            <span class="row__ic row__ic--img"><img src="${catIconSrc(cat.id)}" alt="" /></span>
             <span class="row__body"><span class="row__title">${esc(cat.name)}</span><span class="row__meta">${esc(cat.blurb)}</span></span>
             <span class="row__chev">${icon("chevron", 20)}</span></button>`;
         }).join("")}
@@ -718,6 +774,13 @@
     if (act === "back" || act === "back-article") { back(); return; }
 
     // Acciones
+    if (cmd === "showmap") {
+      const cc = DATA.countries.find(x => x.code === rest[0]);
+      const ss = cc && cc.sites[+rest[1]];
+      const holder = document.getElementById("mapblock");
+      if (ss && holder) { holder.classList.add("is-open"); holder.innerHTML = mapExpanded(ss, rest[0], +rest[1]); }
+      return;
+    }
     if (cmd === "save") { toggleSave(rest.join(":")); return; }
     if (cmd === "listen") { toggleListen(rest.join(":")); return; }
     if (cmd === "txt") { state.txt = +rest[0]; persist(); applyRoot(); render(); return; }
