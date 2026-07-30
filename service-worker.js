@@ -2,16 +2,16 @@
    Estrategia: precache del "app shell" + cache-first para activos del mismo origen.
    Es lo que hace que la PWA funcione SIN CONEXIÓN, el valor central del proyecto. */
 
-const CACHE = 'pasos-seguros-v7';
+const CACHE = 'pasos-seguros-v8';
 
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './assets/css/styles.css?v=7',
-  './assets/js/data.js?v=7',
-  './assets/js/i18n.js?v=7',
-  './assets/js/app.js?v=7',
+  './assets/css/styles.css?v=8',
+  './assets/js/data.js?v=8',
+  './assets/js/i18n.js?v=8',
+  './assets/js/app.js?v=8',
   './assets/img/logo-mark.svg',
   './assets/img/logo-steps.svg',
   './assets/img/generated/welcome-bg.svg',
@@ -67,7 +67,7 @@ self.addEventListener('fetch', (event) => {
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
-        .then((res) => { const copy = res.clone(); caches.open(CACHE).then((c) => c.put('./index.html', copy)).catch(() => {}); return res; })
+        .then((res) => { if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put('./index.html', copy)).catch(() => {}); } return res; })
         .catch(() => caches.match('./index.html'))
     );
     return;
@@ -76,7 +76,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.open(CACHE).then((cache) =>
       cache.match(req).then((cached) => {
-        const network = fetch(req).then((res) => { cache.put(req, res.clone()).catch(() => {}); return res; }).catch(() => cached);
+        const network = fetch(req).then((res) => { if (res && res.ok) cache.put(req, res.clone()).catch(() => {}); return res; }).catch(() => cached);
         return cached || network;
       })
     )
